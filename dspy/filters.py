@@ -51,3 +51,18 @@ class MelFilter(object):
                 self.spectrum[k] = (current_freq - min_freq) / (center_freq - min_freq)
             elif current_freq < max_freq:
                 self.spectrum[k] = (max_freq - current_freq) / (max_freq - center_freq)
+
+
+class MelFilterBank(object):
+    """
+    A bank of several Mel-frequency filters.
+    """
+
+    def __init__(self, sample_frequency, size, mel_filter_width=200.0, bank_size=24):
+        self.sample_frequency = sample_frequency
+        self.size = size
+        self.filters = []
+        for i in range(bank_size):
+            mel_filter = MelFilter(self.sample_frequency)
+            mel_filter.create_filter(i, mel_filter_width, self.size)
+            self.filters.append(mel_filter)
