@@ -33,24 +33,24 @@ class MelFilter(object):
         mel_min_freq = filter_num * mel_filter_width / 2.0
         mel_center_freq = mel_min_freq + mel_filter_width / 2.0
         mel_max_freq = mel_min_freq + mel_filter_width
-        min_freq = mel_to_linear(mel_min_freq)
-        center_freq = mel_to_linear(mel_center_freq)
-        max_freq = mel_to_linear(mel_max_freq)
-        self.generate_spectrum(min_freq, center_freq, max_freq, size)
+        self.min_freq = mel_to_linear(mel_min_freq)
+        self.center_freq = mel_to_linear(mel_center_freq)
+        self.max_freq = mel_to_linear(mel_max_freq)
+        self.generate_spectrum(size)
 
-    def generate_spectrum(self, min_freq, center_freq, max_freq, size):
+    def generate_spectrum(self, size):
         self.spectrum = np.zeros(size)
-        min_pos = int(size * min_freq / self.sample_frequency)
-        max_pos = int(size * max_freq / self.sample_frequency)
+        min_pos = int(size * self.min_freq / self.sample_frequency)
+        max_pos = int(size * self.max_freq / self.sample_frequency)
         max_pos = min(max_pos, size)
         for k in range(min_pos, max_pos + 1):
             current_freq = k * self.sample_frequency / size
-            if current_freq < min_freq:
+            if current_freq < self.min_freq:
                 continue
-            if current_freq < center_freq:
-                self.spectrum[k] = (current_freq - min_freq) / (center_freq - min_freq)
-            elif current_freq < max_freq:
-                self.spectrum[k] = (max_freq - current_freq) / (max_freq - center_freq)
+            if current_freq < self.center_freq:
+                self.spectrum[k] = (current_freq - self.min_freq) / (self.center_freq - self.min_freq)
+            elif current_freq < self.max_freq:
+                self.spectrum[k] = (self.max_freq - current_freq) / (self.max_freq - self.center_freq)
 
 
 class MelFilterBank(object):
