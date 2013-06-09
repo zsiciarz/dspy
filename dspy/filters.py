@@ -28,6 +28,7 @@ class MelFilter(object):
 
     def __init__(self, sample_frequency):
         self.sample_frequency = float(sample_frequency)
+        self.nonzero_samples = 1
 
     def create_filter(self, filter_num, mel_filter_width, size):
         mel_min_freq = filter_num * mel_filter_width / 2.0
@@ -43,6 +44,7 @@ class MelFilter(object):
         min_pos = int(size * self.min_freq / self.sample_frequency)
         max_pos = int(size * self.max_freq / self.sample_frequency)
         max_pos = min(max_pos, size)
+        self.nonzero_samples = max_pos - min_pos
         for k in range(min_pos, max_pos + 1):
             current_freq = k * self.sample_frequency / size
             if current_freq < self.min_freq:
@@ -53,7 +55,7 @@ class MelFilter(object):
                 self.spectrum[k] = (self.max_freq - current_freq) / (self.max_freq - self.center_freq)
 
     def apply(self, x):
-        return self.spectrum.dot(x)
+        return self.spectrum.dot(x) / float(self.nonzero_samples)
 
 
 class MelFilterBank(object):
