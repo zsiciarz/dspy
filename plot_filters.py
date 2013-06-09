@@ -16,6 +16,9 @@ def main():
     for mel_filter in filter_bank.filters:
         plt.plot(frequencies, mel_filter.spectrum)
     plt.xlim([0, sample_frequency / 2])
+    plt.xlabel('Frequency (linear scale)')
+    plt.ylabel('Filter spectrum magnitude')
+    plt.title('Mel filter spectra')
     plt.show()
 
 
