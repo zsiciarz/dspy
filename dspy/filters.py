@@ -52,6 +52,9 @@ class MelFilter(object):
             elif current_freq < self.max_freq:
                 self.spectrum[k] = (self.max_freq - current_freq) / (self.max_freq - self.center_freq)
 
+    def apply(self, x):
+        return self.spectrum.dot(x)
+
 
 class MelFilterBank(object):
     """
@@ -66,3 +69,8 @@ class MelFilterBank(object):
             mel_filter = MelFilter(self.sample_frequency)
             mel_filter.create_filter(i, mel_filter_width, self.size)
             self.filters.append(mel_filter)
+
+    def apply(self, x):
+        padded = np.zeros(self.size)
+        padded[0:x.size] = x
+        return [mel_filter.apply(padded) for mel_filter in self.filters]
