@@ -24,7 +24,7 @@ def main():
 
     # 2. calculate and plot magnitude spectrum of the signal
     spectrum = np.fft.rfft(x)
-    # calculate FFT, discard the Nyquist frequency and compute magnitude
+    # discard the Nyquist frequency and compute magnitude
     spectrum = np.abs(spectrum[:-1])
     frequencies = np.linspace(0, sample_frequency / 2, size / 2)
     plt.xlabel('Frequency [Hz]')
