@@ -15,7 +15,7 @@ def main():
     dt = 1.0 / sample_frequency
     t = np.linspace(0, size * dt, size)
     signal_frequency = 200.0
-    x = np.sin(2 * np.pi * signal_frequency * t)
+    x = np.sin(2 * np.pi * signal_frequency * t) + 0.25 * np.random.rand(size)
     plt.plot(t, x)
     plt.xlabel('Time [s]')
     plt.ylabel('Sample value')
