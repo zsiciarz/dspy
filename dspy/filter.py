@@ -19,3 +19,35 @@ def mel_to_linear(frequency):
     in the linear scale.
     """
     return 700.0 * (np.exp(frequency / 1127.01048) - 1.0)
+
+
+class MelFilter(object):
+    """
+    A single Mel-frequency filter.
+    """
+
+    def __init__(self, sample_frequency):
+        self.sample_frequency = float(sample_frequency)
+
+    def create_filter(self, filter_num, mel_filter_width, size):
+        mel_min_freq = filter_num * mel_filter_width / 2.0
+        mel_center_freq = mel_min_freq + mel_filter_width / 2.0
+        mel_max_freq = mel_min_freq + mel_filter_width
+        min_freq = mel_to_linear(mel_min_freq)
+        center_freq = mel_to_linear(mel_center_freq)
+        max_freq = mel_to_linear(mel_max_freq)
+        self.generate_spectrum(min_freq, center_freq, max_freq, size)
+
+    def generate_spectrum(self, min_freq, center_freq, max_freq, size):
+        self.spectrum = np.zeros(size)
+        min_pos = int(size * min_freq / self.sample_frequency)
+        max_pos = int(size * max_freq / self.sample_frequency)
+        max_pos = min(max_pos, size)
+        for k in range(min_pos, max_pos + 1):
+            current_freq = k * self.sample_frequency / size
+            if current_freq < min_freq:
+                continue
+            if current_freq < center_freq:
+                self.spectrum[k] = (current_freq - min_freq) / (center_freq - min_freq)
+            elif current_freq < max_freq:
+                self.spectrum[k] = (max_freq - current_freq) / (max_freq - center_freq)
