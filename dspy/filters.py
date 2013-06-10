@@ -26,11 +26,9 @@ class MelFilter(object):
     A single Mel-frequency filter.
     """
 
-    def __init__(self, sample_frequency):
+    def __init__(self, sample_frequency, filter_num, mel_filter_width, size):
         self.sample_frequency = float(sample_frequency)
         self.nonzero_samples = 1
-
-    def create_filter(self, filter_num, mel_filter_width, size):
         mel_min_freq = filter_num * mel_filter_width / 2.0
         mel_center_freq = mel_min_freq + mel_filter_width / 2.0
         mel_max_freq = mel_min_freq + mel_filter_width
@@ -68,8 +66,7 @@ class MelFilterBank(object):
         self.size = size
         self.filters = []
         for i in range(bank_size):
-            mel_filter = MelFilter(self.sample_frequency)
-            mel_filter.create_filter(i, mel_filter_width, self.size)
+            mel_filter = MelFilter(self.sample_frequency, i, mel_filter_width, self.size)
             self.filters.append(mel_filter)
 
     def apply(self, x):
