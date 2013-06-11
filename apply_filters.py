@@ -16,10 +16,10 @@ def main():
     t = np.linspace(0, size * dt, size)
     signal_frequency = 200.0
     x = np.sin(2 * np.pi * signal_frequency * t) + 0.25 * np.random.rand(size)
-    plt.plot(t, x)
     plt.xlabel('Time [s]')
     plt.ylabel('Sample value')
     plt.title('Input signal')
+    plt.plot(t, x)
     plt.show()
 
     # 2. calculate and plot magnitude spectrum of the signal
