@@ -41,7 +41,7 @@ class MelFilter(object):
         self.spectrum = np.zeros(size)
         min_pos = int(size * self.min_freq / self.sample_frequency)
         max_pos = int(size * self.max_freq / self.sample_frequency)
-        max_pos = min(max_pos, size)
+        max_pos = min(max_pos, size - 1)
         self.nonzero_samples = max_pos - min_pos
         ascending_range = self.center_freq - self.min_freq
         descending_range = self.max_freq - self.center_freq
