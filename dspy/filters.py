@@ -43,14 +43,16 @@ class MelFilter(object):
         max_pos = int(size * self.max_freq / self.sample_frequency)
         max_pos = min(max_pos, size)
         self.nonzero_samples = max_pos - min_pos
+        ascending_range = self.center_freq - self.min_freq
+        descending_range = self.max_freq - self.center_freq
         for k in range(min_pos, max_pos + 1):
             current_freq = k * self.sample_frequency / size
             if current_freq < self.min_freq:
                 continue
             if current_freq < self.center_freq:
-                self.spectrum[k] = (current_freq - self.min_freq) / (self.center_freq - self.min_freq)
+                self.spectrum[k] = (current_freq - self.min_freq) / ascending_range
             elif current_freq < self.max_freq:
-                self.spectrum[k] = (self.max_freq - current_freq) / (self.max_freq - self.center_freq)
+                self.spectrum[k] = (self.max_freq - current_freq) / descending_range
 
     def apply(self, x):
         return self.spectrum.dot(x) / float(self.nonzero_samples)
