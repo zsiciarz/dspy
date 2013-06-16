@@ -18,6 +18,8 @@ def main():
     try:
         filename = sys.argv[1]
         sample_frequency, x = wavfile.read(filename)
+        if x.ndim > 1:
+            x = x.T[0, :]
         sample_frequency = float(sample_frequency)
         num_frames = x.size // frame_size
     except IndexError:
