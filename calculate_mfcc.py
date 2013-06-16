@@ -45,7 +45,7 @@ def main():
         frame = x[idx_begin:idx_end]
         features[i, :] = mfcc(frame, sample_frequency, num_features=num_features)
 
-    # 3. plot the spectrogram of the signframe number/al and calculated features
+    # 3. plot the spectrogram of the signal and the MFCC chart below
     plt.figure()
     plt.subplot(211)
     plt.specgram(x, NFFT=frame_size, Fs=sample_frequency)
