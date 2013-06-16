@@ -2,23 +2,38 @@
 
 from __future__ import unicode_literals
 
+import sys
+
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.io import wavfile
 
 from dspy.features import mfcc
 
 
 def main():
-    sample_frequency = 44100.0
     frame_size = 2048
-    num_frames = 100
     num_features = 12
+    filename = None
+    try:
+        filename = sys.argv[1]
+        sample_frequency, x = wavfile.read(filename)
+        sample_frequency = float(sample_frequency)
+        num_frames = x.size // frame_size
+    except IndexError:
+        sample_frequency = 44100.0
+        num_frames = 100
     size = frame_size * num_frames
-    # 1. generate and plot test signal
     dt = 1.0 / sample_frequency
-    t = np.linspace(0, size * dt, size)
-    signal_frequency = 1000.0
-    x = np.sin(2 * np.pi * signal_frequency * t) + 0.25 * np.random.rand(size)
+    if filename is None:
+        t = np.linspace(0, size * dt, size)
+        signal_frequency = 1000.0
+        x = np.sin(2 * np.pi * signal_frequency * t) + 0.25 * np.random.rand(size)
+    print 'Input signal: %d frames, %d samples at %0.0f Hz' % (
+        num_frames,
+        size,
+        sample_frequency,
+    )
 
     # 2. split signal into frames and calculate MFCC features for each frame
     features = np.zeros((num_frames, num_features))
