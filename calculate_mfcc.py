@@ -28,10 +28,14 @@ def main():
         frame = x[idx_begin:idx_end]
         features[i, :] = mfcc(frame, sample_frequency, num_features=num_features)
 
-    # plot the calculated features (transposed so frame number/time is on X axis)
-    plt.pcolormesh(features.T)
+    # 3. plot the calculated features (transposed so frame number/time is on X axis)
+    x_scale = np.linspace(0, dt * size, num_frames)
+    y_scale = np.arange(0, num_features + 1, 1)
+    plt.xlim([0, dt * size])
+    plt.ylim([0, num_features])
+    plt.pcolormesh(x_scale, y_scale, features.T)
     plt.title('MFCC chart')
-    plt.xlabel('Frame number')
+    plt.xlabel('Time [s]')
     plt.ylabel('Feature number')
     plt.show()
 
