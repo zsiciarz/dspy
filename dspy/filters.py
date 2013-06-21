@@ -74,4 +74,4 @@ class MelFilterBank(object):
     def apply(self, x):
         padded = np.zeros(self.size)
         padded[0:x.size] = x
-        return [mel_filter.apply(padded) for mel_filter in self.filters]
+        return np.array([mel_filter.apply(padded) for mel_filter in self.filters])
