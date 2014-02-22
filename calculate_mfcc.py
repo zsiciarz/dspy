@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
+from __future__ import unicode_literals, print_function
 
 import sys
 
@@ -31,11 +31,11 @@ def main():
         t = np.linspace(0, size * dt, size)
         signal_frequency = 1000.0
         x = np.sin(2 * np.pi * signal_frequency * t) + 0.25 * np.random.rand(size)
-    print 'Input signal: %d frames, %d samples at %0.0f Hz' % (
+    print('Input signal: %d frames, %d samples at %0.0f Hz' % (
         num_frames,
         size,
         sample_frequency,
-    )
+    ))
 
     # 2. split signal into frames and calculate MFCC features for each frame
     features = np.zeros((num_frames, num_features))
