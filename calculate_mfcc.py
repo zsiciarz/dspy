@@ -28,7 +28,7 @@ def main():
     size = frame_size * num_frames
     dt = 1.0 / sample_frequency
     if filename is None:
-        t = np.linspace(0, size * dt, size)
+        t = np.linspace(0, size * dt, size, endpoint=False)
         signal_frequency = 1000.0
         x = np.sin(2 * np.pi * signal_frequency * t) + 0.25 * np.random.rand(size)
     print('Input signal: %d frames, %d samples at %0.0f Hz' % (
@@ -55,7 +55,7 @@ def main():
     plt.ylabel('Frequency [Hz]')
     plt.title('Spectrogram')
     plt.subplot(212)
-    x_scale = np.linspace(0, dt * size, num_frames)
+    x_scale = np.linspace(0, dt * size, num_frames, endpoint=False)
     y_scale = np.arange(0, num_features + 1, 1)
     plt.xlim([0, dt * size])
     plt.ylim([0, num_features])
