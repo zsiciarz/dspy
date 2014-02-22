@@ -10,8 +10,7 @@ from .filters import MelFilterBank
 
 def mfcc(x, sample_frequency, num_features=12):
     spectrum = np.fft.fft(x)
-    # discard the Nyquist frequency and compute magnitude
-    spectrum = np.abs(spectrum[:-1])
+    spectrum = np.abs(spectrum)
     filter_bank = MelFilterBank(sample_frequency, x.size)
     filter_output = filter_bank.apply(spectrum)
     # Note: DCT truncating is not implemented in scipy yet, slicing DCT
