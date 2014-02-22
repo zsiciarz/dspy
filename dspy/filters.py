@@ -57,7 +57,7 @@ class MelFilter(object):
                 self.spectrum[k] = (self.max_freq - current_freq) / descending_range
 
     def apply(self, x):
-        return self.spectrum.dot(x) / float(self.nonzero_samples)
+        return self.spectrum.dot(x)
 
 
 class MelFilterBank(object):
