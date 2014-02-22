@@ -9,7 +9,7 @@ from .filters import MelFilterBank
 
 
 def mfcc(x, sample_frequency, num_features=12):
-    spectrum = np.fft.rfft(x)
+    spectrum = np.fft.fft(x)
     # discard the Nyquist frequency and compute magnitude
     spectrum = np.abs(spectrum[:-1])
     filter_bank = MelFilterBank(sample_frequency, x.size)
