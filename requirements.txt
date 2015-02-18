@@ -1,8 +1,8 @@
 Jinja2==2.7.3
 MarkupSafe==0.23
-ipython==2.3.1
-matplotlib==1.4.2
+ipython==2.4.1
+matplotlib==1.4.3
 numpy==1.9.1
-pyzmq==14.4.1
+pyzmq==14.5.0
 scipy==0.15.1
-tornado==4.0.2
+tornado==4.1
