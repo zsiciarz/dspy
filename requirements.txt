@@ -5,4 +5,4 @@ matplotlib==1.4.3
 numpy==1.9.2
 pyzmq==14.7.0
 scipy==0.15.1
-tornado==4.2
+tornado==4.2.1
