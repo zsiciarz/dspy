@@ -4,5 +4,5 @@ ipython==4.1.1
 matplotlib==1.5.1
 numpy==1.10.4
 pyzmq==15.1.0
-scipy==0.16.1
+scipy==0.17.0
 tornado==4.3
